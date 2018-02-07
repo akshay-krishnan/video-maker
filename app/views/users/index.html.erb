@@ -1,0 +1,16 @@
+<center><h1>Users of this application</h1>
+ 
+<table>
+  <tr>
+    <th>Username</th>
+    <th>Date of Birth</th>
+  </tr>
+ 
+  <% @users.each do |user| %>
+    <tr>
+      <td><%= user.name %></td>
+      <td><%= user.dob %></td>
+    </tr>
+  <% end %>
+</table>
+</center>

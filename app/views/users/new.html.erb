@@ -1,0 +1,45 @@
+<br>
+
+  <% if @user.errors.any? %>
+    <div id="error_explanation">
+      <h2>
+        <%= pluralize(@user.errors.count, "error") %> prohibited you from creating an account:
+      </h2>
+      <ul>
+        <% @user.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+<h1><center>Enter your details to sign up!</center></h1>
+
+<%= form_with scope: :user, url: users_path, local: true do |form| %>
+
+  <p>
+    <%= form.label :name, "Username" %><br>
+    <%= form.text_field :name %>
+  </p>
+
+  <p>
+    <%= form.label :dob, "Date of Birth" %><br>
+    <%= form.date_field :dob %>
+  </p>
+ 
+  <p>
+    <%= form.label :password, "Choose a password" %><br>
+    <%= form.password_field :password %>
+  </p>
+ 
+   <p>
+    <%= form.label :password_confirmation, "Confirm Password" %><br>
+    <%= form.password_field :password_confirmation %>
+  </p>
+
+  <p>
+    <%= form.submit "Create account" %>
+  </p>
+ 
+<% end %>
