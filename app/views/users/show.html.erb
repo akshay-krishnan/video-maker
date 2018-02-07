@@ -1,0 +1,19 @@
+<p>
+<% if logged_in?%>
+  <strong>Welcome to the VideoMaker application, <%= @user[:name] %></strong>
+</p>
+ <br>
+ <br>
+
+<h1>hello user</h1>
+<br>
+<td><%= link_to 'logout', logout_path,
+              method: :delete,
+              data: { confirm: 'Are you sure?' } %></td>
+
+<% else %>
+  <br>
+  <strong>You are not logged in</strong>
+  <br>
+  <%= link_to 'Login', login_path %>
+<% end %>
