@@ -5,16 +5,16 @@ def new
 end
 
 def show
-	puts logged_in?
 	if logged_in? == true
-		puts "yes he is logged in", logged_in?
 		@user = @current_user
 	end
 end
 
 def create
 	@user = User.new(user_params)
-  if @user.save
+	dir_path = "app/images_uploaded/#{@user[:name]}"
+	Dir.mkdir dir_path
+  if @user.save && (Dir.exists?(dir_path))
   	render 'registered'
   else
     render 'new'
@@ -24,6 +24,17 @@ end
 def index
     @users = User.all
   end
+
+def update
+	current_user
+	#uploaded_io = params[:user][:picture]
+	params[:user][:picture].each do |uploaded_io|
+	File.open(Rails.root.join('app', 'images_uploaded', @current_user[:name],uploaded_io.original_filename), 'wb') do |file|
+  	file.write(uploaded_io.read)
+  	end
+  	end
+  	redirect_to @current_user
+end
 
 private
 def user_params

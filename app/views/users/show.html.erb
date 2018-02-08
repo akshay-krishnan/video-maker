@@ -4,8 +4,11 @@
 </p>
  <br>
  <br>
+<%= form_for @user, url: user_path(@user), method: :post do |f| %>
+<%= f.file_field :picture, multiple: true %>
+<%= f.submit "Upload"%>
+<% end %>
 
-<h1>hello user</h1>
 <br>
 <td><%= link_to 'logout', logout_path,
               method: :delete,
