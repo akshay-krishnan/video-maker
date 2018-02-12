@@ -1,12 +1,28 @@
 <p>
 <% if logged_in?%>
-  <strong>Welcome to the VideoMaker application, <%= @user[:name] %></strong>
+  <h1>Welcome to the VideoMaker application, <%= @user[:name] %></h1>
 </p>
- <br>
- <br>
+<br>
+<h2>upload the images</h2>
+<br>
 <%= form_for @user, url: user_path(@user), method: :post do |f| %>
 <%= f.file_field :picture, multiple: true %>
+<h2>upload the audio</h2>
+
+<%= f.file_field :audio%>
+<br>
 <%= f.submit "Upload"%>
+<% end %>
+<% files = Dir.entries(Rails.root.join('app', 'images_uploaded', @user[:name])) %>
+<% if files.length > 2 %>
+<% count_f = 1 %>
+<% files.each do |file| %>
+<% if file.length > 4%>
+<%= link_to "Download your video #{count_f}", :controller => :users, :action => :download_file, :filename => "#{Rails.root}/app/images_uploaded/#{@user[:name]}/video_output#{count_f}.mp4"%>
+<br>
+<% count_f += 1%>
+<% end %>
+<% end %>
 <% end %>
 
 <br>
