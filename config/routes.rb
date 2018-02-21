@@ -5,6 +5,8 @@ Rails.application.routes.draw do
   delete '/logout',  to: 'sessions#destroy'
   post 'users/:id',	to: 'users#update'
   get 'users/download_file', to: 'users#download_file'
+  get 'users/videos', to: 'users#videos'
+
   get 'home/index'
 
   resources :users

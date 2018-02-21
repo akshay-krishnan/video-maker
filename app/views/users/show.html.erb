@@ -1,40 +1,41 @@
 <% if logged_in?%>
-  <h1>Welcome to the VideoMaker application, <%= @user[:name] %></h1>
-<br>
-<h2>upload the images</h2>
-<%= form_with url: user_path(@user), method: :patch do |f| %>
-<%= f.file_field :picture, multiple: true %>
-<h2>upload the audio</h2>
-<%= f.file_field :audio%>
-<br>
-<h2> Text to be embedded </h2>
-<%= f.text_area :text %>
-<%= f.submit "Upload"%>
-<% end %>
+	<nav class="navbar navbar-default">
+  		<div class="container-fluid">
+    	<div class="navbar-header">
+		<% link_to "VideoMakers", controller: "users", action: "index", class: "navbar-brand" %>
+    	</div>
+    <ul class="nav navbar-nav">
+      <li class="active"><%= link_to "Make Videos", controller: "users", action: "show" %></li>
+      <li><%= link_to "My Videos", controller: "users", action: "videos" %></li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+      <li><%= link_to 'Logout', logout_path,  method: :delete, data: { confirm: 'Are you sure?' } %></li>
+    </ul>
+  </div>
+</nav>
+
+<center>
+  <h1>Welcome to the VideoMaker application, <%= @user[:name] %>!</h1>
+  <br>
+  <h2> Making a new video, are we? </h2>
+</center>
 <br>
 <br>
 <center>
-<% files = Dir.entries(Rails.root.join('public', 'images_uploaded', @user[:name])) %>
-<% if files.length > 2 %>
-<% count_f = 1 %>
-<% files.each do |file| %>
-<% if file.include? 'video_output'%>
-<div>
-
-<%= link_to "Download your video #{count_f}", :controller => :users, :action => :download_file, :filename => "#{Rails.root}/public/images_uploaded/#{@user[:name]}/video_output#{count_f}.mp4"%>
+<h3>Upload your pictures.. </h2>
+<%= form_with url: user_path(@user), method: :patch do |f| %>
+<%= f.file_field :picture, multiple: true %>
+<h3>Upload the audio</h2>
+<%= f.file_field :audio%>
 <br>
-<%= video_tag "/images_uploaded/#{@user[:name]}/video_output#{count_f}.mp4" , :width => 640, :height => 480, :controls => true %>
+<h3> Text to be embedded:   start, end: --text--</h2>
+<%= f.text_area :text %>
 <br>
-</div>
-<% count_f += 1%>
+<%= f.submit "Make My Video"%>
 <% end %>
-<% end %>
-<% end %>
+<br>
+<br>
 </center>
-<br>
-<td><%= link_to 'logout', logout_path,
-              method: :delete,
-              data: { confirm: 'Are you sure?' } %></td>
 
 <% else %>
   <br>

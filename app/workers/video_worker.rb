@@ -40,12 +40,13 @@ sidekiq_options :retry => false
 		end
 	end
 		puts "----------------Hello from sidekiq--------------------------", video_count
-		puts "----------------Hello from sidekiq--------------------------"
+		puts "----------------Hello from sidekiq--------------------------", images_count
 
 		cmd = 'ffmpeg -r 1/2 -i '+root+'/public/images_uploaded/'+user+'/temp_images'+images_count.to_s+'/image%02d.jpg -i '+root+'/public/images_uploaded/'+user+'/temp_images'+images_count.to_s+'/audio.mp3 -vf '+full_drawtext_command+' '+root+'/public/images_uploaded/'+user+'/video_output%d.mp4 -hide_banner' % [video_count+1]
 		puts cmd
 
 		system cmd
+		puts '------------------ path', root+'/public/images_uploaded/'+user+'/temp_images'+images_count.to_s
 		FileUtils.remove_dir(root+'/public/images_uploaded/'+user+'/temp_images'+images_count.to_s)
 	end
 

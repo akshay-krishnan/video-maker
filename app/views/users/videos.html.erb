@@ -1,0 +1,53 @@
+<% if logged_in?%>
+	<nav class="navbar navbar-default">
+  		<div class="container-fluid">
+    	<div class="navbar-header">
+		<% link_to "VideoMakers", controller: "users", action: "index", class: "navbar-brand" %>
+    	</div>
+    <ul class="nav navbar-nav">
+      <li><%= link_to "Make Videos", user_path(@current_user) %></li>
+      <li class = "active"><%= link_to "My Videos", users_videos_path(@current_user) %></li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+      <li><%= link_to 'Logout', logout_path,  method: :delete, data: { confirm: 'Are you sure?' } %></li>
+    </ul>
+  </div>
+</nav>
+
+<center>
+  <h1>Here are all your videos!</h1>
+  <br>
+  <br>
+</center>
+
+<center>
+<% files = Dir.entries(Rails.root.join('public', 'images_uploaded', @user[:name])) %>
+<% count_f=0 %>
+<% files.each do |file| %>
+<% if file.include? 'video_output'%>
+<% count_f +=1 %>
+<% end %>
+<% end %>
+<% if count_f > 0%>
+<% files.each do |file| %>
+<% if file.include? 'video_output'%>
+<div>
+<br>
+<br>
+<%= link_to "Download your video #{count_f}", :controller => :users, :action => :download_file, :filename => "#{Rails.root}/public/images_uploaded/#{@user[:name]}/video_output#{count_f}.mp4"%>
+<br>
+<%= video_tag "/images_uploaded/#{@user[:name]}/video_output#{count_f}.mp4" , :width => 640, :height => 480, :controls => true %>
+<br>
+</div>
+<% count_f -= 1%>
+<% end %>
+<% end %>
+<% end %>
+</center>
+
+<% else %>
+  <br>
+  <strong>You are not logged in</strong>
+  <br>
+  <%= link_to 'Login', login_path %>
+<% end %>

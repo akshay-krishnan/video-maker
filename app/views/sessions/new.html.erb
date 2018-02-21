@@ -1,8 +1,8 @@
 <% if @error_found then%>
 <h1> Invalid Credentials! <h1>
 <%end%>
-
-<h1><center>Enter your details to sign in</center></h1>
+<center>
+<h1>Enter your details to sign in</h1>
 
 <%= form_with scope: :session, url: login_path, local: true do |form| %>
 
@@ -12,7 +12,7 @@
   </p>
 
   <p>
-    <%= form.label :password, "Choose a password" %><br>
+    <%= form.label :password, "Password" %><br>
     <%= form.password_field :password %>
   </p>
 
@@ -22,4 +22,5 @@
  
 <% end %>
 <br>
-<h2>Dont have an account?</h2><%= link_to 'Sign up', new_user_path%>
+<h2>Dont have an account? </h2><%= link_to 'Sign up', new_user_path%>
+</center>

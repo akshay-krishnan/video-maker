@@ -72,6 +72,11 @@ class UsersController < ApplicationController
 		send_file filename , :disposition => 'attachment'
 	end
 
+	def videos
+		current_user
+		@user = @current_user
+	end
+	
 	private
 	def user_params
 	    params.require(:user).permit(:name, :dob, :password, :password_confirmation)
